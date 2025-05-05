@@ -1,0 +1,1 @@
+<?php`n`$socket = socket_create(AF_INET, SOCK_STREAM, 0);`n`$result = socket_bind(`$socket, "127.0.0.1", 3000);`nif(`$result === false) {`n    echo "Failed to bind: " . socket_strerror(socket_last_error(`$socket));`n} else {`n    echo "Successfully bound to port 3000";`n}`nsocket_close(`$socket);`n?>
