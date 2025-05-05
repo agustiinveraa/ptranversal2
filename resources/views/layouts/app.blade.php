@@ -27,6 +27,7 @@ crossorigin=""></script>
     @yield('privacy-policy')
     @yield('cookies')
     @yield('checkout')
+    @yield('admin')
     @include('components.cookie-banner')
     @include('partials.footer')
     @stack('scripts')

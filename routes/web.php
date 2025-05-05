@@ -54,3 +54,8 @@ Route::get('/carrito', function () {
 Route::get('/checkout', function () {
     return view('pages.checkout');
 })->name('checkout');
+
+Route::get('/admin/stock', [ProductController::class, 'stock'])->name('admin.stock');
+Route::post('/admin/stock/{id}', [ProductController::class, 'updateStock'])->name('products.updateStock');
+Route::post('/admin/discount', [ProductController::class, 'applyDiscount'])->name('products.applyDiscount');
+Route::post('/admin/discountToProd/{id}', [ProductController::class, 'applyDiscountToProduct'])->name('products.applyDiscountToProduct');

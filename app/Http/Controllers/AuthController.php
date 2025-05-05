@@ -12,6 +12,43 @@ use Illuminate\Validation\ValidationException;
 class AuthController extends Controller
 {
     /**
+     * Handle user login
+     */
+    public function login(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|string|email',
+            'password' => 'required|string',
+        ]);
+
+        try {
+            if ($validator->fails()) {
+                return response()->json(['errors' => $validator->errors()], 422);
+            }
+
+            if (!Auth::attempt($request->only('email', 'password'))) {
+                return response()->json([
+                    'errors' => [
+                        'email' => ['Las credenciales proporcionadas son incorrectas.']
+                    ]
+                ], 422);
+            }
+
+            $user = Auth::user();
+            
+
+            
+            return response()->json([
+                'success' => true, 
+                'redirect' => route('home'),
+                'user' => $user
+            ]);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Server error'], 500);
+        }
+    }
+
+    /**
      * Registra un nuevo usuario
      */
     public function register(Request $request)
@@ -27,10 +64,6 @@ class AuthController extends Controller
             'password' => 'required|string|min:8|confirmed',
         ]);
 
-        if ($validator->fails()) {
-            return response()->json(['errors' => $validator->errors()], 422);
-        }
-
         $user = User::create([
             'name' => explode(' ', $request->fullName)[0], // Usamos el primer nombre como 'name'
             'fullName' => $request->fullName,
@@ -44,31 +77,6 @@ class AuthController extends Controller
         ]);
 
         Auth::login($user);
-
-        return response()->json(['success' => true, 'redirect' => route('home')]);
-    }
-
-    /**
-     * Inicia sesión de un usuario
-     */
-    public function login(Request $request)
-    {
-        $validator = Validator::make($request->all(), [
-            'email' => 'required|string|email',
-            'password' => 'required|string',
-        ]);
-
-        if ($validator->fails()) {
-            return response()->json(['errors' => $validator->errors()], 422);
-        }
-
-        if (!Auth::attempt($request->only('email', 'password'))) {
-            return response()->json([
-                'errors' => [
-                    'email' => ['Las credenciales proporcionadas son incorrectas.']
-                ]
-            ], 422);
-        }
 
         return response()->json(['success' => true, 'redirect' => route('home')]);
     }
