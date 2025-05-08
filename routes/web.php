@@ -6,6 +6,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\OrderController;
 
 Route::get('/', function () {
     return view('pages.home');
@@ -64,6 +65,8 @@ Route::get('/checkout', function () {
     return view('pages.checkout');
 })->name('checkout');
 
+Route::post('/order', [OrderController::class, 'store'])->name('order.store');
+
 Route::get('/producto/{id}', [ProductController::class, 'show'])->name('producto');
 Route::get('/product/{id}', [ProductController::class, 'show'])->name('product.show');
 
@@ -111,7 +114,5 @@ Route::prefix('admin')->middleware(AdminMiddleware::class)->group(function () {
     Route::post('/discount', [ProductController::class, 'applyDiscount'])->name('products.applyDiscount');
     Route::post('/discountToProd/{id}', [ProductController::class, 'applyDiscountToProduct'])->name('products.applyDiscountToProduct');
 });
-
-
 
 

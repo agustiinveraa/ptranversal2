@@ -74,6 +74,17 @@
                             <label class="block mb-2 text-sm text-base-content">Correo electrónico</label>
                             <input type="email" placeholder="maria.garcia@ejemplo.com" class="input input-bordered w-full" required/>
                         </div>
+                        <div class="mt-4">
+                            <label class="block mb-2 text-sm text-base-content">Tipo de consulta</label>
+                            <select class="select select-bordered w-full">
+                                <option selected>Seleccionar</option>
+                                <option>Consulta sobre producto</option>
+                                <option>Devolucion</option>
+                                <option>Bug</option>
+                                <option>Sugerencia</option>
+                                <option>Otro</option>
+                            </select>
+                        </div>
                         <div class="w-full mt-4">
                             <label class="block mb-2 text-sm text-base-content">Mensaje</label>
                             <textarea class="textarea textarea-bordered w-full h-32 md:h-56" placeholder="Mensaje" required></textarea>

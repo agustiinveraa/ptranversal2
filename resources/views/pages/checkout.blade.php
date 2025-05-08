@@ -15,7 +15,8 @@
         <div class="card bg-base-100 shadow-xl w-full max-w-lg">
           <div class="card-body">
             <h3 class="card-title mb-4">Información de Pago</h3>
-            <form action="#" class="space-y-4">
+            <form action="{{ route('order.store') }}" method="POST" class="space-y-4" id="checkout-form">
+    @csrf
               <div class="grid grid-cols-2 gap-4">
                 <div class="col-span-2 sm:col-span-1">
                   <label for="full_name" class="label">
@@ -74,7 +75,34 @@
                   />
                 </div>
               </div>
-              <button type="submit" class="btn btn-primary w-full mt-4">Pagar ahora</button>
+              <button type="submit" class="btn btn-primary w-full mt-4" id="submit-button">Pagar ahora</button>
+    <script>
+        document.getElementById('checkout-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+            const total = {{ $total }};
+            
+            fetch(this.action, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+                },
+                body: JSON.stringify({
+                    cart: cart,
+                    total: total
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if(data.success) {
+                    localStorage.removeItem('cart');
+                    window.location.href = '/'; // Redirigir a la página principal
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        });
+    </script>
             </form>
           </div>
         </div>
