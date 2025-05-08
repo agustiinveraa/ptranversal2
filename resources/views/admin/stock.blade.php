@@ -55,33 +55,30 @@ $(document).ready(function() {
     const ctx = canvas.getContext('2d');
     const products = @json($products);
 
-    // Configuración del gráfico
     const margin = 50;
     const width = canvas.width - 2 * margin;
     const height = canvas.height - 2 * margin;
 
-    // Encontrar el valor máximo de stock
-    const maxStock = Math.max(...products.map(p => p.stock));
+    
+     const maxStock = Math.max(...products.map(p => p.stock));
 
-    // Dibujar ejes
+    
     ctx.beginPath();
     ctx.moveTo(margin, margin);
     ctx.lineTo(margin, canvas.height - margin);
     ctx.lineTo(canvas.width - margin, canvas.height - margin);
     ctx.stroke();
 
-    // Dibujar barras
+    
     const barWidth = width / products.length;
     products.forEach((product, index) => {
         const barHeight = (product.stock / maxStock) * height;
         const x = margin + index * barWidth;
         const y = canvas.height - margin - barHeight;
 
-        // Color aleatorio para cada barra
         ctx.fillStyle = `hsl(${Math.random() * 360}, 70%, 50%)`;
         ctx.fillRect(x, y, barWidth * 0.8, barHeight);
 
-        // Etiqueta del producto
         ctx.save();
         ctx.translate(x + barWidth/2, canvas.height - margin + 10);
         ctx.rotate(-Math.PI/4);
@@ -90,13 +87,11 @@ $(document).ready(function() {
         ctx.fillText(product.title, 0, 0);
         ctx.restore();
 
-        // Valor del stock
         ctx.fillStyle = '#000';
         ctx.textAlign = 'center';
         ctx.fillText(product.stock, x + barWidth/2, y - 5);
     });
 
-    // Título del gráfico
     ctx.fillStyle = '#000';
     ctx.textAlign = 'center';
     ctx.font = 'bold 16px Arial';

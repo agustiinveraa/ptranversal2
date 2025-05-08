@@ -30,6 +30,10 @@ Route::post('/api/login', [AuthController::class, 'login'])->name('loginUser');
 Route::post('/api/register', [AuthController::class, 'register'])->name('registerUser');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
+Route::get('/email/verify/{id}/{hash}', [AuthController::class, 'verifyEmail'])
+    ->middleware(['signed'])
+    ->name('verification.verify');
+
 Route::get('/faq', function () {
     return view('pages.faq');
 })->name('faq');

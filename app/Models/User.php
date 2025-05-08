@@ -28,6 +28,7 @@ class User extends Authenticatable
         'billingAddress',
         'preferredMaterial',
         'role',
+        'email_verified_at',
     ];
 
     /**

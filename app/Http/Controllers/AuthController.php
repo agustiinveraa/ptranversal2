@@ -34,6 +34,14 @@ class AuthController extends Controller
                 ], 422);
             }
 
+            if (!Auth::user()->hasVerifiedEmail()) {
+                return response()->json([
+                    'errors' => [
+                        'email' => ['El correu electrònic no ha sido verificado.']
+                    ]
+                ], 422);
+            }
+
             $user = Auth::user();
             
 
@@ -76,10 +84,12 @@ class AuthController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
-        Auth::login($user);
+        $user->sendEmailVerificationNotification();
 
-        return response()->json(['success' => true, 'redirect' => route('home')]);
+        return response()->json(['success' => true, 'message' => 'S ha enviat un correu de verificació. Si us plau, verifiqueu el vostre correu electrònic per completar el registre.']);
     }
+
+    
 
     /**
      * Cierra la sesión del usuario
@@ -91,5 +101,25 @@ class AuthController extends Controller
         $request->session()->regenerateToken();
 
         return redirect()->route('home');
+    }
+
+    /**
+     * Verifica el correu electrònic de l'usuari
+     */
+    public function verifyEmail(Request $request, $id, $hash)
+    {
+        $user = User::findOrFail($id);
+
+        if (!hash_equals($hash, sha1($user->getEmailForVerification()))) {
+            return response()->json(['error' => 'El token de verificació no és vàlid.'], 400);
+        }
+
+        if ($user->hasVerifiedEmail()) {
+            return response()->json(['message' => 'El correu electrònic ja està verificat.'], 200);
+        }
+
+        $user->markEmailAsVerified();
+
+        return response()->json(['message' => 'Correu electrònic verificat correctament.'], 200);
     }
 }
