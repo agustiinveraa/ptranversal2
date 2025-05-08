@@ -1,10 +1,10 @@
 @php
 $items = [
     ['name' => 'Inicio', 'route' => '/'],
-    ['name' => 'Sobre nosotros', 'route' => 'sobre-nosotros'],
-    ['name' => 'Catálogo', 'route' => 'catalogo'],
-    ['name' => 'Contacto', 'route' => 'contacto'],
-    ['name' => 'FAQ', 'route' => 'faq'],
+    ['name' => 'Sobre nosotros', 'route' => '/sobre-nosotros'],
+    ['name' => 'Catálogo', 'route' => '/catalogo'],
+    ['name' => 'Contacto', 'route' => '/contacto'],
+    ['name' => 'FAQ', 'route' => '/faq'],
 ];
 
 @endphp

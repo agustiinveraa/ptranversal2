@@ -61,5 +61,14 @@ class ProductController extends Controller
         return redirect()->back()->with('success', 'Descompte eliminat correctament');
     }
 
+    public function show($id)
+    {
+        $product = Product::findOrFail($id);
+        $relatedProducts = Product::where('subcategory_id', $product->subcategory_id)
+            ->where('id', '!=', $product->id)
+            ->limit(4)
+            ->get();
+        return view('pages.product-detail', compact('product', 'relatedProducts'));
+    }
 
 }

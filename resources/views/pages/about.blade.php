@@ -39,7 +39,7 @@
         </div>
       </div>
       
-      <a href="/catalogo/" class="btn btn-primary">
+      <a href="{{ route('catalogo') }}" class="btn btn-primary">
         Nuestro catálogo
         <svg class="ml-2" xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 18 18">
           <path stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M6.75 4.5l4.5 4.5-4.5 4.5"/>

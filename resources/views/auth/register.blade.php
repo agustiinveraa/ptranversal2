@@ -71,7 +71,7 @@
 
             <div class="flex flex-col gap-4">
                 <button type="submit" class="w-full btn btn-primary">Registrarse</button>
-                <a href="/login" class="text-sm self-center">¿Ya tienes una cuenta? Inicia sesión</a>
+                <a href="{{ route('login') }}" class="text-sm self-center">¿Ya tienes una cuenta? Inicia sesión</a>
             </div>
         </form>
     </div>

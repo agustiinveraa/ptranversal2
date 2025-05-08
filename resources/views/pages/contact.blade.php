@@ -59,29 +59,55 @@
                 </div>
 
                 <div class="p-4 py-6 rounded-lg bg-base-200 md:p-8">
-                    <form>
+                    <form id="contactForm">
                         <div class="-mx-2 md:items-center md:flex">
                             <div class="flex-1 px-2">
                                 <label class="block mb-2 text-sm text-base-content">Nombre</label>
-                                <input type="text" placeholder="María" class="input input-bordered w-full" />
+                                <input type="text" placeholder="María" class="input input-bordered w-full" required/>
                             </div>
                             <div class="flex-1 px-2 mt-4 md:mt-0">
                                 <label class="block mb-2 text-sm text-base-content">Apellidos</label>
-                                <input type="text" placeholder="García" class="input input-bordered w-full" />
+                                <input type="text" placeholder="García" class="input input-bordered w-full" required/>
                             </div>
                         </div>
                         <div class="mt-4">
                             <label class="block mb-2 text-sm text-base-content">Correo electrónico</label>
-                            <input type="email" placeholder="maria.garcia@ejemplo.com" class="input input-bordered w-full" />
+                            <input type="email" placeholder="maria.garcia@ejemplo.com" class="input input-bordered w-full" required/>
                         </div>
                         <div class="w-full mt-4">
                             <label class="block mb-2 text-sm text-base-content">Mensaje</label>
-                            <textarea class="textarea textarea-bordered w-full h-32 md:h-56" placeholder="Mensaje"></textarea>
+                            <textarea class="textarea textarea-bordered w-full h-32 md:h-56" placeholder="Mensaje" required></textarea>
                         </div>
-                        <button class="btn btn-primary w-full mt-4">
-                            Enviar mensaje
+                        <button class="btn btn-primary w-full mt-4" id="submitBtn">
+                            <span id="btnText">Enviar mensaje</span>
+                            <span id="spinner" class="hidden loading loading-spinner"></span>
                         </button>
                     </form>
+
+@push('scripts')
+<script>
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        // Mostrar spinner
+        document.getElementById('btnText').classList.add('hidden');
+        document.getElementById('spinner').classList.remove('hidden');
+        document.getElementById('submitBtn').disabled = true;
+        
+        // Simular envío (reemplazar con AJAX real)
+        setTimeout(() => {
+            // Ocultar spinner
+            document.getElementById('btnText').classList.remove('hidden');
+            document.getElementById('spinner').classList.add('hidden');
+            document.getElementById('submitBtn').disabled = false;
+            
+            // Mostrar alerta
+            alert('¡Mensaje enviado correctamente!');
+            document.getElementById('contactForm').reset();
+        }, 1500);
+    });
+</script>
+@endpush
                 </div>
             </div>
         </div>

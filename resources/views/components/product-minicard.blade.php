@@ -34,6 +34,7 @@
     
     
     <button onclick="addToCart({{ $productId }}, '{{ $title }}', '{{ $image }}', '{{$price}}')" class="btn btn-primary">Añadir al carrito <span class="font-bold">({{ $price }}€)</span></button>
+    <a href="{{ route('producto', ['id' => $productId]) }}" class="btn">Ver Producto</a>
 
     <div class="card-actions justify-center my-2">
       <div class="badge badge-outline">Con IVA</div>

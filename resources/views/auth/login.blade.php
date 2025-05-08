@@ -45,7 +45,7 @@
 
             <div class="flex flex-col gap-4">
                 <button type="submit" class="w-full btn btn-primary">Iniciar sesión</button>
-                <a href="/register" class="text-sm self-center">¿No tienes una cuenta? Regístrate</a>
+                <a href="{{ route('register') }}" class="text-sm self-center">¿No tienes una cuenta? Regístrate</a>
             </div>
         </form>
     </div>
