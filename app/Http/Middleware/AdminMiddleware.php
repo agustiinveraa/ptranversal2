@@ -17,7 +17,7 @@ class AdminMiddleware
     public function handle(Request $request, Closure $next): Response
     {
         // Comprova si l'usuari està autenticat i és administrador
-        if (Auth::check() && Auth::user()->role === 'admin') {
+        if (Auth::check() && Auth::user()->admin == 1) {
             return $next($request);
         }
         
