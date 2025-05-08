@@ -29,6 +29,7 @@ crossorigin=""></script>
     @yield('checkout')
     @yield('productdetail')
     @yield('admin')
+    @yield('profile')
     @include('components.cookie-banner')
     @include('partials.footer')
     @stack('scripts')

@@ -80,11 +80,14 @@ $items = [
                 tabindex="0"
                 class="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
                 <li>
-                  <a class="justify-between">
+                  <a class="justify-between" href="{{ route('profile.show')}}">
                     Perfil
                   </a>
                 </li>
                 <li><a>Ajustes</a></li>
+                @if (auth()->user()->admin == 1)
+                    <li><a href="{{ route('admin.dashboard') }}">Dashboard de Admin</a></li>
+                @endif
                 <li> <form id="logout-form" action="{{ route('logout') }}" method="POST">
                   @csrf
               <button type="submit">Cerrar sesión</button></form></li>

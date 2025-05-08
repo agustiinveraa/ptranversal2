@@ -27,6 +27,7 @@ class User extends Authenticatable
         'shippingAddress',
         'billingAddress',
         'preferredMaterial',
+        'role',
     ];
 
     /**
